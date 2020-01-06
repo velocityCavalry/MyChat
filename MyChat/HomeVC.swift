@@ -22,6 +22,8 @@ class HomeVC: UIViewController {
     var textMaxW : CGFloat = 0.00
     //语音部件
     let leftBtn = UIButton.init(type: .custom)
+    let icon = UIImage(named: "micIcon")
+    let iconFill = UIImage(named: "micIconFill")
     private let speechRecognizer = SFSpeechRecognizer(locale: Locale.init(identifier: "en-US"))  //1
     private var recognitionRequest: SFSpeechAudioBufferRecognitionRequest?
     private var recognitionTask: SFSpeechRecognitionTask?
@@ -32,7 +34,7 @@ class HomeVC: UIViewController {
         textMaxW = ScreenW - 80 - 60 - 10
         //1 初开始默认设置几条历史消息
         for _ in 0..<10 {
-            let text = "今天天气很好,风和日丽"
+            let text = "Today is a good day"
             let chatDataModel = ChatDataModel()
             chatDataModel.text = text
             let size = self.getTextRectSize(text: text, fontSize: 14, size: CGSize.init(width: textMaxW, height: CGFloat.greatestFiniteMagnitude))
@@ -58,7 +60,7 @@ class HomeVC: UIViewController {
         //3底部输入栏的大小
         bottomChatVIew.frame = CGRect.init(x: 0, y: ScreenH - bottomSafeH - 50, width: ScreenW, height: 50 + bottomSafeH)
         //文本输入框带下
-        inputTextView.frame = CGRect.init(x: 50, y: 10, width: ScreenW - 100, height: 30)
+        inputTextView.frame = CGRect.init(x: 60, y: 10, width: ScreenW - 120, height: 30)
         //文本输入框背景颜色
         inputTextView.backgroundColor  = UIColor.white
         //文本输入框代理
@@ -71,9 +73,12 @@ class HomeVC: UIViewController {
         bottomChatVIew.addSubview(inputTextView)
         //左边转语音按钮
         
-        leftBtn.frame = CGRect.init(x: 5, y: 5, width: 40, height: 40)
-        leftBtn.setTitle("语音", for: .normal)
-        leftBtn.setTitleColor(.black, for: .normal)
+        leftBtn.frame = CGRect.init(x: 5, y: 5, width: 50, height: 40)
+        //用字来代表button
+        //leftBtn.setTitle("Voice", for: .normal)
+        //leftBtn.setTitleColor(.black, for: .normal)
+        //用图来代表button
+        leftBtn.setBackgroundImage(icon, for: .normal)
         //语音按钮添加点击事件
         leftBtn.isEnabled = false  //2
         // Configure the SFSpeechRecognizer object already
@@ -114,8 +119,8 @@ class HomeVC: UIViewController {
         bottomChatVIew.addSubview(leftBtn)
         //右边发送按钮
         let rightBtn = UIButton.init(type: .custom)
-        rightBtn.frame = CGRect.init(x: ScreenW - 45, y: 5, width: 40, height: 40)
-        rightBtn.setTitle("发送", for: .normal)
+        rightBtn.frame = CGRect.init(x: ScreenW - 55, y: 5, width: 50, height: 40)
+        rightBtn.setTitle("Send", for: .normal)
         //发送按钮添加点击事件
         rightBtn.addTarget(self, action: #selector(clickRelease), for: .touchUpInside)
         rightBtn.setTitleColor(.black, for: .normal)
@@ -254,6 +259,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UI
         return rect
     }
     
+    // voice recoginition code
     func startRecording() {
             
             if recognitionTask != nil {
@@ -288,10 +294,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UI
             recognitionTask = speechRecognizer!.recognitionTask(with: recognitionRequest, resultHandler: { (result, error) in
                 
                 var isFinal = false
-                /* note
-                    problem 1: the original method outputs the sentence to the console multiple times (temp-fix, hasSuffix)
-                    
-                 */
+                
                 if result != nil {
                     self.inputTextView.text = previousOutput! + (result?.bestTranscription.formattedString)!
                     isFinal = (result?.isFinal)!
@@ -339,7 +342,7 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UI
                  audioEngine.stop()
                  recognitionRequest?.endAudio()
                  leftBtn.isEnabled = false
-                 leftBtn.setTitle("Hd", for: .normal)
+                 leftBtn.setBackgroundImage(icon, for: .normal)
              }
          }
          
@@ -347,6 +350,6 @@ extension HomeVC:UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UI
     @objc func buttonDown(_ sender: Any) {
              startRecording()
              leftBtn.isEnabled = false
-             leftBtn.setTitle("Rs", for: .normal)
+             leftBtn.setBackgroundImage(iconFill, for: .normal)
          }
 }
