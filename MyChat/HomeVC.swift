@@ -73,7 +73,7 @@ class HomeVC: UIViewController {
         bottomChatVIew.addSubview(inputTextView)
         //左边转语音按钮
         
-        leftBtn.frame = CGRect.init(x: 5, y: 5, width: 50, height: 40)
+        leftBtn.frame = CGRect.init(x: 5, y: 5, width: 40, height: 40)
         //用字来代表button
         //leftBtn.setTitle("Voice", for: .normal)
         //leftBtn.setTitleColor(.black, for: .normal)
