@@ -14,7 +14,7 @@ class HomeVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bottomChatVIew: UIView!
-    //消息模型数组
+    // 消息模型数组
     var dataList = [ChatDataModel]()
     //消息文本输入框
     let inputTextView = UITextView()
@@ -44,42 +44,42 @@ class HomeVC: UIViewController {
         }
         //顶部标题
         self.title = "聊天窗口"
-        //2设置tableView大小
+        //init tableView size
         tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50)
-        //背景色
+        // set background color to gray
         tableView.backgroundColor = GRAY_BACKGROUND_COLOR
-        //设置tableView 代理
+        // set tableView delegate and datasource
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView的底部view
+        //tableView's footerview
         tableView.tableFooterView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: ScreenW, height: 20))
-        //c去除cell之间的分割线
+        //delete separator between cells
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        //注册cell
+        // register cell
         tableView.register(ChatCell.classForCoder(), forCellReuseIdentifier: "ChatCell")
-        //3底部输入栏的大小
+        // set bottom chat view size
         bottomChatVIew.frame = CGRect.init(x: 0, y: ScreenH - bottomSafeH - 50, width: ScreenW, height: 50 + bottomSafeH)
-        //文本输入框带下
+        // set input text view size
         inputTextView.frame = CGRect.init(x: 60, y: 10, width: ScreenW - 120, height: 30)
-        //文本输入框背景颜色
+        // set input text view color
         inputTextView.backgroundColor  = UIColor.white
-        //文本输入框代理
+        // set input text view delegate
         inputTextView.delegate = self
-        //文本输入框文本颜色
+        // set input text view text color
         inputTextView.textColor = UIColor.black
-        //文本输入框圆角半径
+        // set input text view corner radius
         inputTextView.layer.cornerRadius = 4
-        //文本输入框添加到父控件上
+        // add input text view as a subview to bottomchatview
         bottomChatVIew.addSubview(inputTextView)
-        //左边转语音按钮
+        // left button: voice
         
         leftBtn.frame = CGRect.init(x: 5, y: 5, width: 40, height: 40)
-        //用字来代表button
+        // use characters for button
         //leftBtn.setTitle("Voice", for: .normal)
         //leftBtn.setTitleColor(.black, for: .normal)
-        //用图来代表button
+        // use icons for button
         leftBtn.setBackgroundImage(icon, for: .normal)
-        //语音按钮添加点击事件
+        // 语音按钮添加点击事件 // set default to be false
         leftBtn.isEnabled = false  //2
         // Configure the SFSpeechRecognizer object already
         // stored in a local member variable.
@@ -117,7 +117,7 @@ class HomeVC: UIViewController {
         
         
         bottomChatVIew.addSubview(leftBtn)
-        //右边发送按钮
+        // send button on the right
         let rightBtn = UIButton.init(type: .custom)
         rightBtn.frame = CGRect.init(x: ScreenW - 55, y: 5, width: 50, height: 40)
         rightBtn.setTitle("Send", for: .normal)
