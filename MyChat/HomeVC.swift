@@ -149,14 +149,15 @@ class HomeVC: UIViewController {
         guard let userInfo = noti.userInfo! as? [String : AnyObject] else {
             return
         }
-        
+        // identifies the ending frame rectangle of the keyboard in screen coordinates. The frame rectangle reflects the current orientation of the device.
         let keyBoardInfo2 = userInfo["UIKeyboardFrameEndUserInfoKey"]
         // the height of the keyboard
         let endY = keyBoardInfo2!.cgRectValue.size.height
         // the time it needs to pop up
+        // The key for an NSNumber object containing a double that identifies the duration of the animation in seconds.
         let aTime = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as! TimeInterval
         UIView.animate(withDuration: aTime) { [weak self]() -> Void in
-            //动画改编bottomChatVIew偏移和tableView的位置
+            //change bottomChatVIew and tableView positions
             self?.bottomChatVIew.transform = CGAffineTransform(translationX: 0, y: -endY)
             self?.tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50 - endY)
         }
@@ -165,7 +166,6 @@ class HomeVC: UIViewController {
     }
     //MARK: ---------  when keyboard hides
     @objc func keyBoardWillHide(noti:Notification) {
-        //
         
         // retrieving data of the keyboard
         guard let userInfo = noti.userInfo! as? [String : AnyObject] else {
@@ -174,9 +174,9 @@ class HomeVC: UIViewController {
         
         // the time it needs for the keyboard to hide
         let aTime = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as! TimeInterval
-        //设置一个 aTime 时间内的动画
+        // animation with duration of aTime
         UIView.animate(withDuration: aTime) { [weak self]() -> Void in
-            //动画改编bottomChatVIew偏移和tableView的位置
+             //change bottomChatVIew and tableView positions
             self?.bottomChatVIew.transform = CGAffineTransform.identity
             self?.tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50)
         }
@@ -212,42 +212,42 @@ class HomeVC: UIViewController {
 @available(iOS 10.0, *)
 extension HomeVC:UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,UIScrollViewDelegate, SFSpeechRecognizerDelegate{
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        //允许键盘取消(隐藏)
+        // keyboard hide
         return true
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //tableView 有多少行数据
+        // # of data in the tableView
         return self.dataList.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        //tableView的每行高度,  顶部底部各留20 加上文本高度
+        // tableView's height + 20 overhead for top and botton + text height
        let model = self.dataList[indexPath.row]
         return model.textH + 20 + 20
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //展示消息cell
+        // show message cell
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as! ChatCell
-        //取消选中样式
+        // cancel the selection style
         cell.selectionStyle = UITableViewCell.SelectionStyle.none
         let model = self.dataList[indexPath.row]
-        //消息背景的位置大小
+        // adjust background for messages
         cell.bgView.frame = CGRect.init(x: ScreenW - 60 - model.textW - 10 , y: 10, width:model.textW + 20, height: model.textH + 20)
-        //消息标题的位置大小
+        // adjust title's size
         cell.titleLab.frame = CGRect.init(x: ScreenW - 60 - model.textW , y: 20, width:model.textW, height: model.textH)
-        //消息文本
+        // message text
         cell.titleLab.text = model.text
         return cell
     }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.isDecelerating {
-            //如果手在滑动消息tableView,q隐藏键盘
+            // if user is sliding the table view, hide input text view
             self.inputTextView.resignFirstResponder()
         }
         
     }
     
-    // 根据 文本   字体   指定宽度高度, 获取字体占用的位置大小
+    // get text rectange size by the textview and font
     func getTextRectSize(text:String?,fontSize:CGFloat,size:CGSize) -> (CGRect) {
         if text == nil || text == "" {
             return CGRect(x: 0, y: 0, width: 0, height: 0)
