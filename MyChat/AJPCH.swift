@@ -1,9 +1,9 @@
 
 //  AJPCH.swift
+//  MyChat
 //
-//
-//  Created by abc on 19/11/27.
-//  Copyright © 2019年 cn.www. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit
@@ -13,14 +13,14 @@ import UIKit
 public  let ScreenW =  UIScreen.main.bounds.size.width
 public  let ScreenH = UIScreen.main.bounds.size.height
 
-var iPhoneX : Bool = (UIScreen.main.bounds.width == 375.0 && UIScreen.main.bounds.height == 812.0) || (UIScreen.main.bounds.width == 414.0 && UIScreen.main.bounds.height == 896.0) || (UIScreen.main.bounds.width == 375.0 && UIScreen.main.bounds.height == 896.0)  ? true : false  //x  xsM  xr  的尺寸
-//状态栏高度
+var iPhoneX : Bool = (UIScreen.main.bounds.width == 375.0 && UIScreen.main.bounds.height == 812.0) || (UIScreen.main.bounds.width == 414.0 && UIScreen.main.bounds.height == 896.0) || (UIScreen.main.bounds.width == 375.0 && UIScreen.main.bounds.height == 896.0)  ? true : false  //x  xsM  xr  's size
+// the height of status bar
 var statusBarH : CGFloat = iPhoneX == true  ? 44.00 : 20.00
-//导航栏加上状态栏高度
+// the height of navigation and status bar
 var navStatusBarH : CGFloat = iPhoneX == true  ? 88.00 : 64.00
-//导航栏
+// the height of navigation bar
 var navBarH : CGFloat = iPhoneX == true  ? 44.00 : 44.00
-//全面屏底部安全区高度
+// the height of safe area
 var bottomSafeH : CGFloat = iPhoneX == true ? 34.00 : 0.00
 
 var GRAY_BACKGROUND_COLOR =  UIColor.colorWithHexString(color: "#F5F6FA")//灰底色

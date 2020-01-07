@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0513CE1D23C41D5400029A61 /* SpeechToTextRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0513CE1C23C41D5400029A61 /* SpeechToTextRecognition.swift */; };
 		0E4347C323BB493100A5D5A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4347C223BB493100A5D5A9 /* AppDelegate.swift */; };
 		0E4347C823BB493100A5D5A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E4347C623BB493100A5D5A9 /* Main.storyboard */; };
 		0E4347CA23BB493200A5D5A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E4347C923BB493200A5D5A9 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0513CE1C23C41D5400029A61 /* SpeechToTextRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechToTextRecognition.swift; sourceTree = "<group>"; };
 		0E4347BF23BB493100A5D5A9 /* MyChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E4347C223BB493100A5D5A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0E4347C723BB493100A5D5A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,7 @@
 				0E92387123BB4B9700F22834 /* HomeVC.swift */,
 				0E92387723BB5C6E00F22834 /* ChatDataModel.swift */,
 				0E92386F23BB4A5A00F22834 /* ChatCell.swift */,
+				0513CE1C23C41D5400029A61 /* SpeechToTextRecognition.swift */,
 				0E4347C623BB493100A5D5A9 /* Main.storyboard */,
 				0E4347C923BB493200A5D5A9 /* Assets.xcassets */,
 				0E4347CB23BB493200A5D5A9 /* LaunchScreen.storyboard */,
@@ -150,6 +153,7 @@
 				0E92387623BB530700F22834 /* UIcolor+Hex.swift in Sources */,
 				0E92387423BB4D6000F22834 /* AJPCH.swift in Sources */,
 				0E92387223BB4B9700F22834 /* HomeVC.swift in Sources */,
+				0513CE1D23C41D5400029A61 /* SpeechToTextRecognition.swift in Sources */,
 				0E92387823BB5C6E00F22834 /* ChatDataModel.swift in Sources */,
 				0E4347C323BB493100A5D5A9 /* AppDelegate.swift in Sources */,
 				0E92387023BB4A5A00F22834 /* ChatCell.swift in Sources */,

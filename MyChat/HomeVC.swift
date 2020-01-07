@@ -2,8 +2,8 @@
 //  HomeVC.swift
 //  MyChat
 //
-//  Created by abc on 2019/12/31.
-//  Copyright © 2019 com.cn. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit
@@ -14,13 +14,13 @@ class HomeVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var bottomChatVIew: UIView!
-    // 消息模型数组
+    // array of chatDataModel, storing chat history
     var dataList = [ChatDataModel]()
-    //消息文本输入框
+    // input textView, for user to type message to send
     let inputTextView = UITextView()
-    //w消息显示的最大宽度
+    // the max width of the text
     var textMaxW : CGFloat = 0.00
-    //语音部件
+    // speech to text recoginition parts
     let leftBtn = UIButton.init(type: .custom)
     let icon = UIImage(named: "micIcon")
     let iconFill = UIImage(named: "micIconFill")
@@ -32,7 +32,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textMaxW = ScreenW - 80 - 60 - 10
-        //1 初开始默认设置几条历史消息
+        //1 start with 10 default messages
         for _ in 0..<10 {
             let text = "Today is a good day"
             let chatDataModel = ChatDataModel()
@@ -42,8 +42,8 @@ class HomeVC: UIViewController {
             chatDataModel.textW = size.width
             self.dataList.append(chatDataModel)
         }
-        //顶部标题
-        self.title = "聊天窗口"
+        // the title of window
+        self.title = "MyChat"
         //init tableView size
         tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50)
         // set background color to gray
@@ -79,7 +79,7 @@ class HomeVC: UIViewController {
         //leftBtn.setTitleColor(.black, for: .normal)
         // use icons for button
         leftBtn.setBackgroundImage(icon, for: .normal)
-        // 语音按钮添加点击事件 // set default to be false
+        // set default to be false
         leftBtn.isEnabled = false  //2
         // Configure the SFSpeechRecognizer object already
         // stored in a local member variable.
@@ -112,6 +112,7 @@ class HomeVC: UIViewController {
                 self.leftBtn.isEnabled = isButtonEnabled
             }
         }
+        // adding listener for .touchDown and .touchUpInside event
         leftBtn.addTarget(self, action: #selector(buttonDown), for: .touchDown)
         leftBtn.addTarget(self, action: #selector(buttonRelease), for: .touchUpInside)
         
@@ -121,15 +122,15 @@ class HomeVC: UIViewController {
         let rightBtn = UIButton.init(type: .custom)
         rightBtn.frame = CGRect.init(x: ScreenW - 55, y: 5, width: 50, height: 40)
         rightBtn.setTitle("Send", for: .normal)
-        //发送按钮添加点击事件
+        // adding .touchUpInside event listener to send button
         rightBtn.addTarget(self, action: #selector(clickRelease), for: .touchUpInside)
         rightBtn.setTitleColor(.black, for: .normal)
         bottomChatVIew.addSubview(rightBtn)
         
         //4
-        //监控键盘的弹出
+        // listening to when the keyboard shows
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardFrameCHange(noti:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        //监控键盘的隐藏
+        // listening to when the keyboard hides
         NotificationCenter.default.addObserver(self, selector: #selector(keyBoardWillHide(noti:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         
@@ -140,37 +141,38 @@ class HomeVC: UIViewController {
         self.extendedLayoutIncludesOpaqueBars = true
         self.automaticallyAdjustsScrollViewInsets = false
     }
-    //MARK: ---------  键盘弹出时
+    //MARK: ---------  When keyboard shows up
     @objc func keyBoardFrameCHange(noti:Notification) {
         //
         
-        // 获取键盘通知数据
+        // retrieving data of the keyboard
         guard let userInfo = noti.userInfo! as? [String : AnyObject] else {
             return
         }
         
         let keyBoardInfo2 = userInfo["UIKeyboardFrameEndUserInfoKey"]
-        //键盘的高度
+        // the height of the keyboard
         let endY = keyBoardInfo2!.cgRectValue.size.height
-        //弹出需要用的时间
+        // the time it needs to pop up
         let aTime = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as! TimeInterval
         UIView.animate(withDuration: aTime) { [weak self]() -> Void in
             //动画改编bottomChatVIew偏移和tableView的位置
             self?.bottomChatVIew.transform = CGAffineTransform(translationX: 0, y: -endY)
             self?.tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50 - endY)
         }
-        // tableviewd滚动到底部最后t一条消息
+        // tableview scroll to the last message
         tableView.scrollToRow(at: IndexPath.init(row: self.dataList.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
     }
-    //MARK: ---------  键盘隐藏时
+    //MARK: ---------  when keyboard hides
     @objc func keyBoardWillHide(noti:Notification) {
         //
         
-        // 获取键盘通知数据
+        // retrieving data of the keyboard
         guard let userInfo = noti.userInfo! as? [String : AnyObject] else {
             return
         }
-         //弹出需要用的时间
+        
+        // the time it needs for the keyboard to hide
         let aTime = userInfo["UIKeyboardAnimationDurationUserInfoKey"] as! TimeInterval
         //设置一个 aTime 时间内的动画
         UIView.animate(withDuration: aTime) { [weak self]() -> Void in
@@ -178,31 +180,31 @@ class HomeVC: UIViewController {
             self?.bottomChatVIew.transform = CGAffineTransform.identity
             self?.tableView.frame = CGRect.init(x: 0, y: navStatusBarH, width: ScreenW, height: ScreenH - navStatusBarH - bottomSafeH - 50)
         }
-        // tableviewd滚动到底部最后一条消息
+        // tableview scroll to the last message
         tableView.scrollToRow(at: IndexPath.init(row: self.dataList.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
     }
-    //MARK: ---------  点击发送
+    //MARK: ---------  sending content
     @objc func clickRelease()  {
-        //内容为空 不能发送
+        // if message body is emtpy, abort
         if self.inputTextView.text == ""{
             return
         }
-        //获取文本
+        // retrieving the message body
         let text = self.inputTextView.text!
-        //创建这条消息的模型 包括文本  文本宽度 文本高度
+        // creating the ChatDataModel, including the width and height
         let chatDataModel = ChatDataModel()
         chatDataModel.text = text
-        //根据固定宽度获取文本的大小,
+        // getting the frame size according to the width and height
         let size = self.getTextRectSize(text: text, fontSize: 14, size: CGSize.init(width: textMaxW, height: CGFloat.greatestFiniteMagnitude))
         chatDataModel.textH = size.height
         chatDataModel.textW = size.width
-        //将消息模型添加到数组内
+        // adding the chatDataModel to datalist
         self.dataList.append(chatDataModel)
-        //刷新tableView
+        // refresh tableView
         tableView.reloadData()
-        // tableviewd滚动到底部最后一条消息
+        // tableview scroll to the last message
         tableView.scrollToRow(at: IndexPath.init(row: self.dataList.count - 1, section: 0), at: UITableView.ScrollPosition.bottom, animated: true)
-        //输入框内容清空
+        // reset inputTextView
         self.inputTextView.text = ""
     }
     

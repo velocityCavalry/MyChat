@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  MyChat
 //
-//  Created by abc on 2019/12/31.
-//  Copyright © 2019 com.cn. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit

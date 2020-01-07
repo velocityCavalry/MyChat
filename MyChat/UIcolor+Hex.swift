@@ -1,9 +1,9 @@
 //
 //  UIcolor-Extension.swift
-//  abc
+//  MyChat
 //
-//  Created by abc on 19/1/9.
-//  Copyright © 2019年 abc. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit
@@ -17,20 +17,20 @@ extension UIColor {
     
     
     }
-    //16进制颜色设置
+    // hexadecimal to color
     class func colorWithHexString(color : String , alpha : CGFloat) -> UIColor{
-        //删除字符串中的空格
+        // delete the space in the string
         var  cString = color
         
         // String should be 6 or 8 characters
         if cString.lengthOfBytes(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) < 6{
             return UIColor.clear
         }
-        //如果是0x开头的，那么截取字符串，字符串从索引为2的位置开始，一直到末尾
+        // if string starts with "0x", then start reading at index 2
         if cString.hasPrefix("0x") {
             cString = (cString as NSString).substring(from: 2)
         }
-        //如果是#开头的，那么截取字符串，字符串从索引为1的位置开始，一直到末尾
+        // if string starts with "#", then start reading at index 1
         if cString.hasPrefix("#") {
             cString = (cString as NSString).substring(from: 1)
         }
@@ -57,13 +57,13 @@ extension UIColor {
          //UIColor(colorLiteralRed: Float(r) / 255.0, green: Float(g) / 255.0, blue: Float(b) / 255.0, alpha: Float(alpha))
 }
 
-    // MARK: - 十六进制转十进制
+    // MARK: - hexadecimal to decimal
     class func hexTodec(num:String) -> Int {
-        let str = num.uppercased()//大写
+        let str = num.uppercased()
         var sum = 0
         for i in str.utf8 {
-            sum = sum * 16 + Int(i) - 48 // 0-9 从48开始
-            if i >= 65 {                 // A-Z 从65开始，但有初始值10，所以应该是减去55
+            sum = sum * 16 + Int(i) - 48 // 0-9 start from 48
+            if i >= 65 {                 // A-Z start from 65, but default value is 10, so subtract 55 from it
                 sum -= 7
             }
         }

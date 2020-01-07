@@ -2,20 +2,20 @@
 //  ChatDataModel.swift
 //  MyChat
 //
-//  Created by abc on 2019/12/31.
-//  Copyright © 2019 com.cn. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit
 
 class ChatDataModel: NSObject {
-    //消息文本模型
+    // the message body
     var text = ""
-    //文本高度
+    // the height of the text
     var textH:CGFloat = 0.00
-    //文本宽度
+    // the width of the text
     var textW:CGFloat = 0.00
-    //用户头像
+    // the user icon
     var headIcon = UIImage()
     
     

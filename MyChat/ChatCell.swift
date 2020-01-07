@@ -2,8 +2,8 @@
 //  ChatCell.swift
 //  MyChat
 //
-//  Created by abc on 2019/12/31.
-//  Copyright © 2019 com.cn. All rights reserved.
+//  Created by Xijie Lin on 1/6/20.
+//  Copyright © 2020 com.cn. All rights reserved.
 //
 
 import UIKit
@@ -15,7 +15,7 @@ class ChatCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    //注册UITableViewCell
+    // register UITableViewCell
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
           super.init(style: style, reuseIdentifier: reuseIdentifier)
           
@@ -23,30 +23,30 @@ class ChatCell: UITableViewCell {
     
       }
     func addSub() {
-        //添加子控件
+        // adding sub elements
         self.contentView.backgroundColor = UIColor.clear
         self.backgroundColor = UIColor.clear
-        // 添加聊天消息蓝色背景
+        // setting the background color
         bgView.backgroundColor =  UIColor.systemBlue
-        // 圆角
+        // setting round corner
         bgView.layer.cornerRadius = 5
-        //切除边缘
+        // cutting the edges
         bgView.layer.masksToBounds = true
         self.contentView.addSubview(bgView)
         
-        // 聊天内容
+        // the message content
         titleLab.numberOfLines = 0
-        //字体颜色
+        // setting the color and font of the text
         titleLab.textColor = UIColor.black
         titleLab.font = UIFont.systemFont(ofSize: 14)
-        //字体左对齐
+        // text Alignment
         titleLab.textAlignment = .left
         self.contentView.addSubview(titleLab)
-        //发送消息者头像
+        // icon of the sender
         let headIcon = UIImageView()
-        //位置大小
+        // the icon size
         headIcon.frame = CGRect.init(x: ScreenW - 40, y: 10, width: 30, height: 30)
-        //图片
+        
         headIcon.image = UIImage(named: "me")
         self.contentView.addSubview(headIcon)
     }
